@@ -94,7 +94,7 @@ void loop() {
     Serial.println(instructions->speedDecision);
     rm.RearWheels.setVelocity(instructions->speedDecision);
     rm.Deadman.discardCurrentSignal();  // we have to forget what we know about the deadman switch
-    delay(200);
+    delay(instructions->durationDecision);
   } // hasRadioSignal & isActive
 
   else

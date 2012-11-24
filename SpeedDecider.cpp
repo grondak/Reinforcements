@@ -11,14 +11,14 @@
     switch(_pnavigator->course())
     {
     case free_roam: // there is only one course answer from the navigator at this point
-      return freeRoamDecision(myEnvironment);
+      return freeRoamSpeedDecision(myEnvironment);
       break;
     default:
-      return freeRoamDecision(myEnvironment);
+      return freeRoamSpeedDecision(myEnvironment);
     }
   }
 
-  speed_t SpeedDecider::freeRoamDecision(Environment *myEnvironment)
+  speed_t SpeedDecider::freeRoamSpeedDecision(Environment *myEnvironment)
   {
     
     //const int min_decision_distance = 100; // if our measured distance is greater than this distance in cm, we will steer straight on
@@ -44,4 +44,26 @@
     }
     return decision;
   }
+    
+    
+    duration_t SpeedDecider::nextDuration(Environment *myEnvironment)
+    {
+      switch(_pnavigator->course())
+      {
+        case free_roam:
+          return freeRoamDurationDecision(myEnvironment);
+          break;
+        default:
+          return freeRoamDurationDecision(myEnvironment);
+      }
+    }
+    
+    duration_t SpeedDecider::freeRoamDurationDecision(Environment *myEnvironment)
+    {
+      duration_t decision = 200;
+      
+      return decision;
+    }
+    
+
 

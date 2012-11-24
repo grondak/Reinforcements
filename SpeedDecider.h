@@ -10,11 +10,12 @@ class SpeedDecider // the speed decider has no idea where it is going, it just k
 public:
   SpeedDecider(Navigator *inNavigator);
   speed_t nextSpeed(Environment *myEnvironment);
-
+  duration_t nextDuration(Environment *myEnvironment);
 
 private:
   Navigator *_pnavigator;
-  speed_t freeRoamDecision(Environment *myEnvironment);
+  speed_t freeRoamSpeedDecision(Environment *myEnvironment);
+  duration_t freeRoamDurationDecision(Environment *myEnvironment);
 };
 
 #endif

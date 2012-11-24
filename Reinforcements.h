@@ -45,11 +45,13 @@ enum speed_t { stopped=90, slow=75, fast=72};
 enum turning_direction_t {turn_straight = 90, turn_left = 0, turn_right = 180};
 enum range_direction_t {range_straight = 1, range_left = 0, range_right = 2};
 enum decision_t {free_roam = 1};
+typedef int duration_t;
 
 typedef struct HelmDecision
 {
   turning_direction_t directionDecision;
   speed_t speedDecision;
+  duration_t durationDecision;
 };
 
 const boolean run_mode = true; // FALSE: Ruckus servos are not actuated. TODO: Serial data enabled
