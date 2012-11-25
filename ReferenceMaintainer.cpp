@@ -15,9 +15,10 @@
 
     //   MyPlayer.beep(2);
     LocalEnvironment.initialize();
+    LCD.initialize();
+    justDoneWithDeadman = false;
     Helm.initialize(&Reinforcements, &LocalEnvironment);
     // Beep 3 times on the window if you want me
-    justDoneWithDeadman = false;
     MyPlayer.beep(3);
   }
 

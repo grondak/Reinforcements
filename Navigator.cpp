@@ -7,7 +7,7 @@ Navigator::Navigator()
     _pMap = &localMap;
   }
 
-  decision_t Navigator::course() // here's the heavy lifting for now
+  navigation_decision_t Navigator::course() // here's the heavy lifting for now
   {
     if(!_pMap->initialized())
       return free_roam;

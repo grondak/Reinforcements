@@ -10,6 +10,8 @@
 #include "Environment.h"
 #include "Navigator.h"
 #include "Helmsman.h"
+#include "SerialLCD.h"
+
 class ReferenceMaintainer
 {
 
@@ -21,6 +23,7 @@ public:
   //    Song TwinkleTwinkle(length, notes, beats, tempo); // just a placeholder, can put in other tunes
   DriveWheels RearWheels;
   SteeringWheels FrontWheels;
+  SerialLCD LCD;
   DeadmanSwitch Deadman;
   Environment LocalEnvironment;
   Navigator Reinforcements;

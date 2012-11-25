@@ -8,9 +8,9 @@ class Navigator // the navigator will use the map to determine where we want to 
 {
 public:
   Navigator();
-  decision_t course(); // here's the heavy lifting for now
+  navigation_decision_t course(); // here's the heavy lifting for now
 private:
-  decision_t _decision;
+  navigation_decision_t _decision;
   Map *_pMap;
 };
 
