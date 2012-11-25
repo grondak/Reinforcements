@@ -106,6 +106,7 @@ void SerialLCD::printNavigationDecision(navigation_decision_t inChoice)
 void SerialLCD::printRanges(int ranges[3])// left, middle, right
 {
   snprintf(lineData[line_ranges], numCols, "L: %i|C: %i|R: %i", ranges[0], ranges[1], ranges[2]);
+  printline(line_ranges, lineData[line_ranges]);
 }
 
 void SerialLCD::printline(int lineNumber, char *inputData)
