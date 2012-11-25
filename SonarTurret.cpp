@@ -40,10 +40,6 @@
     for (int i = 0; i < _totalHeadings; i++)
     {
       *ranges++ = _currentRanges[i];
-      Serial.print("Range[");
-      Serial.print(i);
-      Serial.print("]: ");
-      Serial.println(_currentRanges[i]);
     }
     return;
   }
@@ -70,10 +66,6 @@
     int distance = uS / US_ROUNDTRIP_CM;
     if (distance == 0) // someone has their hand over the sonar, or we have exceeded maxDistance
       distance = maxDistance;  // force to maxDistance
-    Serial.print("Sonar range: ");
-    Serial.println(distance);
-    Serial.print("Turret heading: ");
-    Serial.println(_turretHeading);
     _currentRanges[_turretHeading] = distance;  // keep it for the environment
   }
 

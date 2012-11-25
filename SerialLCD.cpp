@@ -31,10 +31,19 @@ void SerialLCD::initialize()
   Serial1.write(ESC); 
   Serial1.write(0x53); 
   Serial1.write(8);
+  delay(LCDDelay); // slow down processing because the LCD is slower than the Arduino
   for( int x; x< numLines; x++) // zero out our string holder
   {
     memset(lineData[x],0, 1);
   }
+  Serial1.print("Reinforcements");
+}
+
+void SerialLCD::clear()
+{
+  Serial1.write(0xFE); //command flag
+  Serial1.write(0x51); //clear command.
+  delay(LCDDelay); // slow down processing because the LCD is slower than the Arduino
 }
 
 // a human interpretation of the data in the Decision system
@@ -61,10 +70,10 @@ void SerialLCD::printDirectionDecision(turning_direction_t inDirection)
 
 void SerialLCD::printSpeedDecision(speed_t inSpeed, duration_t inDuration)
 {
-  
+
   int zerobaseLine = line_speed - 1;
   char frontOfLine[numCols];
-  strcpy(frontOfLine,"Speed: ");
+  strcpy(frontOfLine,"Sp: ");
   switch(inSpeed)
   {
   case stopped:
@@ -76,8 +85,8 @@ void SerialLCD::printSpeedDecision(speed_t inSpeed, duration_t inDuration)
   case fast:
     strcat(frontOfLine, "Fast:");
     break;
-   default:
-    strcat(frontOfLine, "Undef speed");
+  default:
+    strcat(frontOfLine, "Undef");
     break;
   }
   snprintf(lineData[zerobaseLine], numCols, "%s (%i)ms", frontOfLine, inDuration);
@@ -90,23 +99,47 @@ void SerialLCD::printNavigationDecision(navigation_decision_t inChoice)
   char courseType[numCols];
   switch(inChoice)
   {
-    case free_roam:
-      strcpy(courseType, "Free Roam");
-      break;
-    default:
-      strcpy(courseType, "Undefined");
-      break;
+  case free_roam:
+    strcpy(courseType, "Free Roam");
+    break;
+  default:
+    strcpy(courseType, "Undefined");
+    break;
   }
-  snprintf(lineData[zerobaseLine], numCols, "Course Type: %s", courseType);
+  snprintf(lineData[zerobaseLine], numCols, "Nav: %s", courseType);
   printline(line_navigation, lineData[zerobaseLine]);
 
 }
 
+void SerialLCD::printDeadman()
+{
+  printline(line_deadman, "Deadman: No signal.");
+}
+
+void SerialLCD::printFreeRAM()
+{
+
+  int mygiantbuffer[2000];
+  mygiantbuffer[1999]=7;
+  Serial1.write(ESC);  // set up the ESC Char
+  Serial1.write(0x45);
+  Serial1.write(0x14);
+  extern int __heap_start, *__brkval; 
+  extern unsigned int __bss_end;
+  int free_memory;
+
+  if((int)__brkval == 0)
+    free_memory = ((int)&free_memory) - ((int)&__bss_end);
+  else
+    free_memory = ((int)&free_memory) - ((int)__brkval);
+  Serial1.print(free_memory);
+}
 
 void SerialLCD::printRanges(int ranges[3])// left, middle, right
 {
-  snprintf(lineData[line_ranges], numCols, "L: %i|C: %i|R: %i", ranges[0], ranges[1], ranges[2]);
-  printline(line_ranges, lineData[line_ranges]);
+  int zerobaseLine = line_ranges - 1;
+  snprintf(lineData[zerobaseLine], numCols, "L:%i|C:%i|R:%i", ranges[0], ranges[1], ranges[2]);
+  printline(line_ranges, lineData[zerobaseLine]);
 }
 
 void SerialLCD::printline(int lineNumber, char *inputData)
@@ -134,5 +167,7 @@ void SerialLCD::printline(int lineNumber, char *inputData)
   }
   Serial1.write(switchToLineChar); // send the code
   Serial1.print(inputData); // now print the data
+  delay(LCDDelay); // slow down processing because the LCD is slower than the Arduino
 }
+
 

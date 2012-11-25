@@ -80,7 +80,7 @@ void setup()
 
 void loop() {
   HelmDecision *instructions;
-
+  HelmDecision yourmom;
 
     
   if(rm.Deadman.hasRadioSignal() || !run_mode)
@@ -93,9 +93,11 @@ void loop() {
        rm.justDoneWithDeadman = false;
      }
     instructions = rm.Helm.getHelmDecision();
+    rm.LCD.clear();
     rm.LCD.printDirectionDecision(instructions->directionDecision);
     rm.LCD.printSpeedDecision(instructions->speedDecision, instructions->durationDecision);
     rm.LCD.printNavigationDecision(instructions->courseDecision);
+    //rm.LCD.printFreeRAM();
     rm.LCD.printRanges(instructions->ranges); // left, middle, right
 
     rm.FrontWheels.setDirection(instructions->directionDecision);  
@@ -106,6 +108,7 @@ void loop() {
 
   else
   {
+    rm.LCD.printDeadman();
     rm.justDoneWithDeadman = true;
     rm.RearWheels.halt();
     rm.FrontWheels.goStraight();

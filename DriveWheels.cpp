@@ -22,8 +22,7 @@ DriveWheels::DriveWheels()
   void DriveWheels::setVelocity(speed_t desiredSpeed)
   {
     _currentSpeed = desiredSpeed;
-    Serial.print("DriveWheels setting speed: ");
-    Serial.println(_currentSpeed);
+
     if(run_mode)
       _pESC->write(_currentSpeed);
   }

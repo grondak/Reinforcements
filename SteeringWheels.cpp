@@ -20,8 +20,6 @@ SteeringWheels::SteeringWheels()
   void SteeringWheels::setDirection(turning_direction_t desiredDirection)
   {
     _currentDirection = desiredDirection;
-    Serial.print("SteeringWheels setting direction: ");
-    Serial.println(_currentDirection);
     if(run_mode)
     _psteering->write(desiredDirection);
   }
