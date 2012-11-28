@@ -9,13 +9,14 @@ class SpeedDecider // the speed decider has no idea where it is going, it just k
 {
 public:
   SpeedDecider(Navigator *inNavigator);
-  speed_t nextSpeed(Environment *myEnvironment);
-  duration_t nextDuration(Environment *myEnvironment);
+  speed_t nextSpeed(Environment *myEnvironment, turning_direction_t currentDirection);
+  duration_t nextDuration(Environment *myEnvironment, turning_direction_t currentDirection);
 
 private:
   Navigator *_pnavigator;
-  speed_t freeRoamSpeedDecision(Environment *myEnvironment);
-  duration_t freeRoamDurationDecision(Environment *myEnvironment);
+  speed_t freeRoamSpeedDecision(Environment *myEnvironment, turning_direction_t currentDirection);
+  duration_t freeRoamDurationDecision(Environment *myEnvironment, turning_direction_t currentDirection);
+  range_direction_t convertDirectionDecisionToRange(turning_direction_t inputDirection);
 };
 
 #endif

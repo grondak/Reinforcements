@@ -22,8 +22,8 @@ void Helmsman::initialize(Navigator *inNavigator, Environment *inEnvironment)
     _environment->lookAround();
     myDecision.courseDecision = _navigator->course();
     myDecision.directionDecision = _pdirectionDecider->nextDirection(_environment);
-    myDecision.speedDecision = _pspeedDecider->nextSpeed(_environment);
-    myDecision.durationDecision = _pspeedDecider->nextDuration(_environment);
+    myDecision.speedDecision = _pspeedDecider->nextSpeed(_environment, myDecision.directionDecision);
+    myDecision.durationDecision = _pspeedDecider->nextDuration(_environment, myDecision.directionDecision);
     _environment->getRanges(myDecision.ranges);
 
     return &myDecision;

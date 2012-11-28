@@ -63,4 +63,6 @@ const int deadman_threshhold = 1800; // any throttle signal greater than this wi
 
 const int min_movement_distance = 175; // if our measured distance is less than this, we will stop
 const int min_straight_distance = 220; // if our measured distance is greater than this distance in cm, we will turn
+const duration_t going_straight_duration = 150; // if we are going straight, run for 150ms before looking around again
+const duration_t turning_duration = 75; // if we are turning, we should make more decisions per second
 #endif
